@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<title>Team Project</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="style.css">
+
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
+		<script type="//code.jquery.com/jquery-1.10.2.js"></script>
+
+		<SCRIPT language=JavaScript>
+			$(start);
+
+			function his(seq) {//used for printing history to troubleshoot
+				//document.getElementById('history').innerHTML += " >" + seq;
+			}
+
+			function cddisplay() {
+				document.getElementById('timespan').innerHTML = "Timer: " + count + " seconds";
+			}
+
+			function counter() {
+				cddisplay();
+				count++;
+				setTimeout("counter()", 1000);//creates 1000 milliseconds delay before running counter(), which then adds a second to the counter
+			}
+
+			var countCorrect = 0, countIncorrect = 0;
+			var matchNum1, matchNum2, matchNum3;
+			var player;
+			var savedTime = 1;
+			var count = 0;
+
+			function start() {
+
+				his("start");
+				player = window.prompt("Enter your name (32 char max)");
+
+				matchNum1 = [];
+				matchNum2 = [];
+				matchNum3 = [];
+
+				for (var i = 0; i < 6; i++)
+					matchNum1[i] = i + 1;
+				for (var i = 0; i < 6; i++)
+					matchNum2[i] = i + 1;
+				for (var i = 0; i < 7; i++)
+					matchNum3[i] = i + 1;
+
+				for (var randomNum, tempNum, i = 6; i; randomNum = Math.floor(Math.random() * i), tempNum = matchNum1[--i], matchNum1[i] = matchNum1[randomNum], matchNum1[randomNum] = tempNum);
+
+				for (var randomNum, tempNum, i = 6; i; randomNum = Math.floor(Math.random() * i), tempNum = matchNum2[--i], matchNum2[i] = matchNum2[randomNum], matchNum2[randomNum] = tempNum);
+
+				for (var randomNum, tempNum, i = 7; i; randomNum = Math.floor(Math.random() * i), tempNum = matchNum3[--i], matchNum3[i] = matchNum3[randomNum], matchNum3[randomNum] = tempNum);
+
+				for (var i = 0; i < 6; i++) {
+					$('<div id = "position"><img src="image/group1/' + matchNum1[i] + '.gif"></div>').data('number', matchNum1[i]).attr('num', 'gif' + matchNum1[i]).appendTo('#left').draggable({
+						stack : '#left',
+						revert : true
+					});
+				}
+				for (var i = 0; i < 6; i++) {
+					$('<div id = "position"><img src="image/group2/' + matchNum2[i] + '.gif"></div>').data('number', matchNum2[i]).attr('num', 'gif' + matchNum2[i]).appendTo('#right').draggable({
+						stack : '#right',
+						revert : true
+					});
+				}
+				for (var i = 0; i < 7; i++) {
+					$('<div id = "position"><img src="image/group3/' + matchNum3[i] + '.gif"></div>').data('number', matchNum3[i]).attr('num', 'gif' + matchNum3[i]).appendTo('#middle').draggable({
+						stack : '#middle',
+						revert : true
+					});
+				}
+
+				his("gif done");
+
+				pictures1 = [];
+				pictures2 = [];
+				pictures3 = [];
+
+				for (var i = 0; i < 6; i++)
+					pictures1[i] = i + 1;
+				for (var i = 0; i < 6; i++)
+					pictures2[i] = i + 1;
+				for (var i = 0; i < 7; i++)
+					pictures3[i] = i + 1;
+
+				for (var i = 1; i < 7; i++) {
+					$('<div><img src="image/group4/' + pictures1[i - 1] + '.jpg"></div>').data('number', i).appendTo('#matchArea').droppable({
+						accept : '#left div',
+						drop : DragDrop
+					});
+				}
+				for (var i = 1; i < 7; i++) {
+					$('<div><img src="image/group5/' + pictures2[i - 1] + '.jpg"></div>').data('number', i).appendTo('#matchArea').droppable({
+						accept : '#right div',
+						drop : DragDrop
+					});
+				}
+				for (var i = 1; i <= 7; i++) {
+					$('<div><img src="image/group6/' + pictures3[i - 1] + '.jpg"></div>').data('number', i).appendTo('#matchArea').droppable({
+						accept : '#middle div',
+						drop : DragDrop
+					});
+				}
+
+				his("words done");
+
+				his(player + " started");
+				
+				counter();
+				his("counter");
+
+				DragDrop(e, e1);
+				his("dragdrop done");
+			}
+
+			function DragDrop(e, e1) {
+				his("DragDrop");
+
+				var identified = e1.draggable.data('number');
+				var unidentified = $(this).data('number');
+				statistics = document.getElementById("statistics");
+
+				if (unidentified == identified) {
+					his("match");
+
+					e1.draggable.draggable('disable');
+					$(this).droppable('disable');
+					e1.draggable.position({
+						of : $(this)
+					});
+					e1.draggable.draggable('option', 'revert', false);
+					++countCorrect;
+					statistics.innerHTML = "Correct: " + countCorrect + " out of 19<br>Total incorrect: " + countIncorrect;
+				} else if (unidentified != identified) {
+					his("mismatch");
+					e1.draggable.draggable('enable');
+					$(this).droppable('enable');
+					e1.draggable.position({
+						of : $(this)
+					});
+					e1.draggable.draggable('option', 'revert', true);
+					++countIncorrect;
+					statistics.innerHTML = "Correct: " + countCorrect + " out of 19<br>Total incorrect: " + countIncorrect;
+				}
+				//always check if all gif has been matched, if not, skip and wait for next dragdrop
+				if (countCorrect == 19) {//then submit player name, time from counter in seconds, and # of wrongs into submit.php which sends data to the database leaderboard.sql
+					his("counting at"+count);
+					alert("Congratulations, you completed this game! Click Leaderboard to see the result.");
+					//var savedTime = count;
+					his("test2");
+					his("submit: " + player + "," + count + "sec," + countIncorrect + "error");
+					$.post("submit.php", {
+						name : player,
+						time : count,
+						wrongs : countIncorrect
+					});
+					his("submitted");
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div id="container">
+			<div class="head">
+				<h1>ASL and Pictures Game</h1>
+			</div>
+			<!--<div id="history">
+				(H)
+			</div> div for history printing-->
+			<div id="left"></div>
+			<div id="right"></div>
+			<body>
+				<div align="center">
+					<span align = "center" id="timespan"></span>
+					<br>
+				</div>
+				<div id="matchArea">
+					<input id="submitbutton1" type="button" value="Reset" onClick="window.location.reload()"><!--resets game and timer-->
+
+					<form method="post" action="leaderboard.php">
+						<input id="submitbutton2" type="submit" value="Leaderboard"><!--leads to page that displays high score-->
+					</form>
+				</div>
+				<br>
+
+				<div id="middle"></div>
+				<div id="statistics"></div><!--light blue box displaying # of rights/wrongs-->
+				<div id="footer">
+					<p>
+						Copyright &copy; 2014 ITS 452 Web Programming.
+						Site Designed by Team Project (David Torrance, Oliver Lee &amp Todd McGlone. All Rights Reserved.
+						<br>
+						Click <a href="sourcetutorial.html">here </a>to see image sources and ASL tutorial.<!--leads to page that displays solutions-->
+					</p>
+				</div>
+		</div>
+	</body>
+</html>

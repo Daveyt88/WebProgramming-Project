@@ -1,0 +1,177 @@
+#container {
+    height: 1100px;
+    position: relative;
+}
+
+body {
+    line-height: 2em;
+    color: black;
+}
+
+.head {
+    text-align: center;
+    padding: 6px;
+    background: yellow;
+    border: 5px solid orange;
+}
+
+p {
+    text-align: center;
+}
+
+img {
+    width: 200px;
+}
+
+section {
+    border: 5px groove gold;
+    margin-top: 20px;
+    padding: 20px;
+}
+
+li {
+    padding-right: 10px;
+    display: inline;
+}
+
+#position {
+    padding-top: 15px;
+}
+
+#return {
+    text-align: center;
+    font-size: 200%;
+}
+
+#timespan {
+    display: inline-block;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    color: red;
+    font-size: 200%;
+}
+
+#matchArea {
+    background: blue;
+    height: 500px;
+    border: 10px solid #333;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+#matchArea div {
+    float: left;
+    width: 200px;
+    height: 110px;
+    background: white;
+    margin: 5px;
+}
+
+#left {
+    float: left;
+}
+
+#right {
+    float: right;
+}
+
+#middle {
+    margin-left: 10%;
+}
+
+#middle div {
+    float: left;
+    width: 200px;
+    padding: 5px;
+}
+
+#statistics {
+    background: lightblue;
+    position: absolute;
+    margin-top: -150px;
+    margin-left: 1400px;
+    padding: 10px;
+    width: 150px;
+    height: 50px;
+    border: 5px solid black;
+}
+
+#submitbutton1 {
+    margin-top: 400px;
+    margin-left: 20%;
+    border-top: 1px solid #000000;
+    background: #65d6ba;
+    background: -webkit-gradient(linear, left top, left bottom, from(#4c3e9c), to(#65d6ba));
+    background: -webkit-linear-gradient(top, #4c3e9c, #65d6ba);
+    background: -moz-linear-gradient(top, #4c3e9c, #65d6ba);
+    background: -ms-linear-gradient(top, #4c3e9c, #65d6ba);
+    background: -o-linear-gradient(top, #4c3e9c, #65d6ba);
+    padding: 20px 40px;
+    -webkit-border-radius: 40px;
+    -moz-border-radius: 40px;
+    border-radius: 40px;
+    -webkit-box-shadow: rgba(0, 0, 0, 1) 0 1px 0;
+    -moz-box-shadow: rgba(0, 0, 0, 1) 0 1px 0;
+    box-shadow: rgba(0, 0, 0, 1) 0 1px 0;
+    text-shadow: rgba(0, 0, 0, .4) 0 1px 0;
+    color: #ffffff;
+    font-size: 22px;
+    font-family: Georgia, Serif;
+    text-decoration: none;
+    position: absolute;
+}
+
+#submitbutton2 {
+    margin-top: 400px;
+    margin-left: 30%;
+    border-top: 1px solid #000000;
+    background: #65d6ba;
+    background: -webkit-gradient(linear, left top, left bottom, from(#4c3e9c), to(#65d6ba));
+    background: -webkit-linear-gradient(top, #4c3e9c, #65d6ba);
+    background: -moz-linear-gradient(top, #4c3e9c, #65d6ba);
+    background: -ms-linear-gradient(top, #4c3e9c, #65d6ba);
+    background: -o-linear-gradient(top, #4c3e9c, #65d6ba);
+    padding: 20px 40px;
+    -webkit-border-radius: 40px;
+    -moz-border-radius: 40px;
+    border-radius: 40px;
+    -webkit-box-shadow: rgba(0, 0, 0, 1) 0 1px 0;
+    -moz-box-shadow: rgba(0, 0, 0, 1) 0 1px 0;
+    box-shadow: rgba(0, 0, 0, 1) 0 1px 0;
+    text-shadow: rgba(0, 0, 0, .4) 0 1px 0;
+    color: #ffffff;
+    font-size: 22px;
+    font-family: Georgia, Serif;
+    text-decoration: none;
+    position: absolute;
+}
+
+#submitbutton1:hover {
+    border-top-color: #40396e;
+    background: #40396e;
+    color: #ffffff;
+}
+
+#submitbutton2:hover {
+    border-top-color: #40396e;
+    background: #40396e;
+    color: #ffffff;
+}
+
+#submitbutton1:active {
+    border-top-color: #2a9ce8;
+    background: #2a9ce8;
+}
+
+#submitbutton2:active {
+    border-top-color: #2a9ce8;
+    background: #2a9ce8;
+}
+
+#footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 80px;
+    background: Orange;
+}
